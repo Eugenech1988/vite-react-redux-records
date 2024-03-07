@@ -27,7 +27,6 @@ const Record: React.FC<IRecordProps> = ({index, title, text, active}) => {
 
   const handleItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent> ,index: number) => {
     dispatch(setSelectedItem(index));
-    console.log('clicked');
   };
   return (
     <>
