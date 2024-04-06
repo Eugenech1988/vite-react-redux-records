@@ -4,12 +4,12 @@ import Box from '@mui/material/Box';
 import { useAppSelector } from '../../store/storeHook';
 
 const Counter = () => {
-  const [completed, setCompleted] = useState<number>(null);
-  const [pending, setPending] = useState<number>(null);
+  const [completed, setCompleted] = useState<number | null>(null);
+  const [pending, setPending] = useState<number | null>(null);
   const records = useAppSelector(state => state.records.recordsList);
-  const countItemsByPropertyValue = (array, key, value) => {
+  const countItemsByPropertyValue = (array: any[], key: any, value: boolean) => {
     let count = 0;
-    array.forEach(item => {
+    array.forEach((item: boolean[]) => {
       if (item[key] === value) {
         count++;
       }

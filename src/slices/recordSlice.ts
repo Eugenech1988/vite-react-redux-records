@@ -1,13 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
 
-type Record = {
+interface Record {
   title: string,
   text: string,
   active: boolean
 }
 
-type RecordState = {
+interface RecordState {
   recordsList: Record[],
   selectedIndex: number | null,
   selectedFilter: string
@@ -23,7 +23,7 @@ const recordSlice = createSlice({
   name: 'records',
   initialState,
   reducers: {
-    addRecord: (state, action: PayloadAction<object>) => {
+    addRecord: (state, action: PayloadAction<{title: string; text: string}>) => {
       state.recordsList.push({
         title: action.payload.title,
         text: action.payload.text,
@@ -36,14 +36,14 @@ const recordSlice = createSlice({
         item.active = !item.active;
       }
     },
-    setSelectedItem(state, action: PayloadAction<number>) {
+    setSelectedItem(state, action: PayloadAction<number | null>) {
       state.selectedIndex = action.payload
     },
     setSelectedFilter(state, action: PayloadAction<string>) {
       state.selectedFilter = action.payload
     },
     clearRecordsList: (state) => {
-      state.records = []
+      state.recordsList = []
     },
   }
 })

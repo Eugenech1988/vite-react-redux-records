@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import uuid from 'react-uuid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
@@ -9,7 +10,7 @@ import { setSelectedItem } from '../../slices/recordSlice';
 import { useAppDispatch, useAppSelector } from '../../store/storeHook';
 
 const RecordsList: React.FC = () => {
-  const [filteredList, setFilteredList] = useState<object>([]);
+  const [filteredList, setFilteredList] = useState<any[]>([]);
   const recordsList = useAppSelector(state => state.records.recordsList);
   const selectedItem = useAppSelector(state => state.records.selectedIndex);
   const currentFilter = useAppSelector(state => state.records.selectedFilter);
@@ -31,6 +32,7 @@ const RecordsList: React.FC = () => {
     }
 
     if (currentFilter === 'current') {
+      //@ts-ignore
       filteredRecords = filteredRecords.filter((record, index) => index === selectedItem)
     }
 
@@ -45,9 +47,9 @@ const RecordsList: React.FC = () => {
         <Counter/>
       </Box>
       <List disablePadding>
-        {filteredList.map((record, index) => (
+        {filteredList.map((record: {title: string, text: string, active: boolean }, index: number) => (
             <Record
-              key={index}
+              key={uuid()}
               title={record.title}
               text={record.text}
               active={record.active}

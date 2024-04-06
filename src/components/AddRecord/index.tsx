@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { useAppDispatch } from '../../store/storeHook';
-import { addRecord, clearRecordsList } from '../../slices/recordSlice';
+import { addRecord } from '../../slices/recordSlice';
 import { MAX_RECORD_SIZE } from '../../constants';
 
 
@@ -19,32 +19,32 @@ const AddRecord: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target;
     setTitleError(null);
     setTitle(value);
   };
 
-  const handleTextChange = (e) => {
-    const {value} = e.target;
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
     setTextError(null);
     setText(value);
   };
 
-  const handleEnterPress = (e) => {
+  const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.target.blur();
+      e.currentTarget.blur();
     }
   };
 
-  const handleAddClick = (e) => {
+  const handleAddClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     setTitleError(null);
     setTextError(null);
 
     if ((text.length <= MAX_RECORD_SIZE) && (text.length > 0) && (title.length > 0)) {
-      dispatch(addRecord({title, text}));
+      dispatch(addRecord({title: String(title), text: String(text)}));
       setText('');
       setTitle('');
       setSuccess(true);
